@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycle</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="card">
+    <header class="header">
+      <h1>Recycle</h1>
+      <p class="tagline">A reminder to recycle your characters while camping Ant Queen.</p>
+    </header>
+
+    <div class="timer-display" id="timerDisplay">05:00</div>
+
+    <div class="controls">
+      <div class="field">
+        <label for="durationSelect">Loop duration</label>
+        <select id="durationSelect">
+          <option value="60">1 minute</option>
+          <option value="180">3 minutes</option>
+          <option value="300" selected>5 minutes</option>
+          <option value="600">10 minutes</option>
+          <option value="900">15 minutes</option>
+          <option value="1800">30 minutes</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="soundSelect">Sound</label>
+        <select id="soundSelect">
+          <option value="nihao" selected>nihao</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button id="startPauseBtn" class="btn btn-primary">Start</button>
+      <button id="resetBtn" class="btn btn-secondary">Reset</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Made for Veridis Quo with Love</p>
+    <p><a href="https://github.com/haswelldev/recycle" target="_blank" rel="noopener">GitHub</a> · Licensed under GPL-3.0</p>
+  </footer>
+
+  <audio id="nihaoAudio" src="assets/nihao.mp3" preload="auto"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
