@@ -1,9 +1,63 @@
+const STORAGE_KEYS = {
+  theme: 'recycle:theme',
+  duration: 'recycle:duration',
+  sound: 'recycle:sound',
+};
+
 const durationSelect = document.getElementById('durationSelect');
 const soundSelect = document.getElementById('soundSelect');
 const timerDisplay = document.getElementById('timerDisplay');
 const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const nihaoAudio = document.getElementById('nihaoAudio');
+const themeButtons = document.querySelectorAll('.theme-btn');
+
+function readStorage(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function writeStorage(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {}
+}
+
+function applyTheme(theme) {
+  if (theme === 'light' || theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', theme);
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  themeButtons.forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.themeChoice === theme);
+  });
+}
+
+function setTheme(theme) {
+  applyTheme(theme);
+  writeStorage(STORAGE_KEYS.theme, theme);
+}
+
+themeButtons.forEach((btn) => {
+  btn.addEventListener('click', () => setTheme(btn.dataset.themeChoice));
+});
+
+applyTheme(readStorage(STORAGE_KEYS.theme) || 'system');
+
+function restoreSelectValue(select, storageKey) {
+  const stored = readStorage(storageKey);
+  const validValues = Array.from(select.options).map((o) => o.value);
+  if (stored !== null && validValues.includes(stored)) {
+    select.value = stored;
+  }
+}
+
+restoreSelectValue(durationSelect, STORAGE_KEYS.duration);
+restoreSelectValue(soundSelect, STORAGE_KEYS.sound);
 
 let durationSeconds = parseInt(durationSelect.value, 10);
 let remaining = durationSeconds;
@@ -66,7 +120,12 @@ resetBtn.addEventListener('click', reset);
 
 durationSelect.addEventListener('change', () => {
   durationSeconds = parseInt(durationSelect.value, 10);
+  writeStorage(STORAGE_KEYS.duration, durationSelect.value);
   reset();
+});
+
+soundSelect.addEventListener('change', () => {
+  writeStorage(STORAGE_KEYS.sound, soundSelect.value);
 });
 
 updateDisplay();
