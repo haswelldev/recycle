@@ -15,9 +15,14 @@
       } catch (e) {}
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
   <div class="theme-switcher" role="group" aria-label="Theme">
     <button type="button" class="theme-btn" data-theme-choice="light">Light</button>
     <button type="button" class="theme-btn" data-theme-choice="dark">Dark</button>
@@ -26,7 +31,8 @@
 
   <main class="card">
     <header class="header">
-      <h1>Recycle</h1>
+      <span class="pill"><span class="pill-dot"></span> Ant Queen Camp Timer</span>
+      <h1><span class="grad">Recycle</span></h1>
       <p class="tagline">A reminder to recycle your characters while camping.</p>
     </header>
 
