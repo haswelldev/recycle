@@ -4,12 +4,19 @@ const STORAGE_KEYS = {
   sound: 'recycle:sound',
 };
 
+const SOUND_FILES = {
+  nihao: 'assets/nihao.mp3',
+  itakimo: 'assets/itakimo.mp3',
+  fahhhh: 'assets/fahhhh.mp3',
+  ding: 'assets/ding.mp3',
+};
+
 const durationSelect = document.getElementById('durationSelect');
 const soundSelect = document.getElementById('soundSelect');
 const timerDisplay = document.getElementById('timerDisplay');
 const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
-const nihaoAudio = document.getElementById('nihaoAudio');
+const soundAudio = document.getElementById('soundAudio');
 const themeButtons = document.querySelectorAll('.theme-btn');
 
 function readStorage(key) {
@@ -59,6 +66,8 @@ function restoreSelectValue(select, storageKey) {
 restoreSelectValue(durationSelect, STORAGE_KEYS.duration);
 restoreSelectValue(soundSelect, STORAGE_KEYS.sound);
 
+soundAudio.src = SOUND_FILES[soundSelect.value];
+
 let durationSeconds = parseInt(durationSelect.value, 10);
 let remaining = durationSeconds;
 let running = false;
@@ -79,8 +88,8 @@ function updateDisplay() {
 function tick() {
   remaining -= 1;
   if (remaining <= 0) {
-    nihaoAudio.currentTime = 0;
-    nihaoAudio.play();
+    soundAudio.currentTime = 0;
+    soundAudio.play();
     remaining = durationSeconds;
   }
   updateDisplay();
@@ -126,6 +135,7 @@ durationSelect.addEventListener('change', () => {
 
 soundSelect.addEventListener('change', () => {
   writeStorage(STORAGE_KEYS.sound, soundSelect.value);
+  soundAudio.src = SOUND_FILES[soundSelect.value];
 });
 
 updateDisplay();
