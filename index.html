@@ -61,6 +61,15 @@
       </div>
     </div>
 
+    <div class="field field-volume">
+      <div class="volume-label-row">
+        <label for="volumeSlider">Volume</label>
+        <span class="volume-value" id="volumeValue">80%</span>
+      </div>
+      <input type="range" id="volumeSlider" min="0" max="100" step="5" value="80">
+      <p class="volume-warning" id="volumeWarning" hidden>Low volume — you risk missing the timer.</p>
+    </div>
+
     <div class="buttons">
       <button id="startPauseBtn" class="btn btn-primary">Start</button>
       <button id="resetBtn" class="btn btn-secondary">Reset</button>
