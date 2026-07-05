@@ -2,7 +2,10 @@ const STORAGE_KEYS = {
   theme: 'recycle:theme',
   duration: 'recycle:duration',
   sound: 'recycle:sound',
+  volume: 'recycle:volume',
 };
+
+const LOW_VOLUME_THRESHOLD = 30;
 
 const SOUND_FILES = {
   nihao: 'assets/nihao.mp3',
@@ -18,6 +21,9 @@ const startPauseBtn = document.getElementById('startPauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const soundAudio = document.getElementById('soundAudio');
 const themeButtons = document.querySelectorAll('.theme-btn');
+const volumeSlider = document.getElementById('volumeSlider');
+const volumeValue = document.getElementById('volumeValue');
+const volumeWarning = document.getElementById('volumeWarning');
 
 function readStorage(key) {
   try {
@@ -67,6 +73,30 @@ restoreSelectValue(durationSelect, STORAGE_KEYS.duration);
 restoreSelectValue(soundSelect, STORAGE_KEYS.sound);
 
 soundAudio.src = SOUND_FILES[soundSelect.value];
+
+function applyVolume(value) {
+  soundAudio.volume = value / 100;
+  volumeValue.textContent = `${value}%`;
+  volumeWarning.hidden = value > LOW_VOLUME_THRESHOLD;
+}
+
+function loadVolume() {
+  const stored = parseInt(readStorage(STORAGE_KEYS.volume), 10);
+  if (!Number.isNaN(stored) && stored >= 0 && stored <= 100) {
+    return stored;
+  }
+  return parseInt(volumeSlider.value, 10);
+}
+
+const initialVolume = loadVolume();
+volumeSlider.value = String(initialVolume);
+applyVolume(initialVolume);
+
+volumeSlider.addEventListener('input', () => {
+  const value = parseInt(volumeSlider.value, 10);
+  writeStorage(STORAGE_KEYS.volume, String(value));
+  applyVolume(value);
+});
 
 let durationSeconds = parseInt(durationSelect.value, 10);
 let remaining = durationSeconds;

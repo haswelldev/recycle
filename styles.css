@@ -14,6 +14,7 @@
   --btn-a: #f3d786;
   --btn-b: #e2b64a;
   --btn-text: #513c04;
+  --warn: #b45309;
   --radius: 16px;
   --shadow: 0 20px 60px -20px rgba(15, 23, 42, 0.12);
   --glow-a: rgba(184, 134, 11, 0.08);
@@ -37,6 +38,7 @@
     --btn-a: #f4d089;
     --btn-b: #e8b24c;
     --btn-text: #2a1e05;
+    --warn: #fbbf24;
     --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
     --glow-a: rgba(232, 178, 76, 0.14);
     --glow-b: rgba(110, 168, 255, 0.12);
@@ -59,6 +61,7 @@
   --btn-a: #f3d786;
   --btn-b: #e2b64a;
   --btn-text: #513c04;
+  --warn: #b45309;
   --shadow: 0 20px 60px -20px rgba(15, 23, 42, 0.12);
   --glow-a: rgba(184, 134, 11, 0.08);
   --glow-b: rgba(59, 130, 246, 0.07);
@@ -80,6 +83,7 @@
   --btn-a: #f4d089;
   --btn-b: #e8b24c;
   --btn-text: #2a1e05;
+  --warn: #fbbf24;
   --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
   --glow-a: rgba(232, 178, 76, 0.14);
   --glow-b: rgba(110, 168, 255, 0.12);
@@ -252,6 +256,66 @@ body {
 .field select:focus {
   outline: none;
   border-color: var(--gold);
+}
+
+.field-volume {
+  width: 100%;
+}
+
+.volume-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.volume-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--btn-a), var(--btn-b));
+  border: 1px solid var(--btn-b);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--btn-a), var(--btn-b));
+  border: 1px solid var(--btn-b);
+  cursor: pointer;
+}
+
+.volume-warning {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--warn);
 }
 
 .buttons {
