@@ -7,6 +7,11 @@ const STORAGE_KEYS = {
 
 const LOW_VOLUME_THRESHOLD = 30;
 
+const ICON_PLAY =
+  '<svg class="icon" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>';
+const ICON_PAUSE =
+  '<svg class="icon" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z"/></svg>';
+
 const SOUND_FILES = {
   nihao: 'assets/nihao.mp3',
   itakimo: 'assets/itakimo.mp3',
@@ -24,6 +29,7 @@ const themeButtons = document.querySelectorAll('.theme-btn');
 const volumeSlider = document.getElementById('volumeSlider');
 const volumeValue = document.getElementById('volumeValue');
 const volumeWarning = document.getElementById('volumeWarning');
+const previewBtn = document.getElementById('previewBtn');
 
 function readStorage(key) {
   try {
@@ -98,6 +104,11 @@ volumeSlider.addEventListener('input', () => {
   applyVolume(value);
 });
 
+previewBtn.addEventListener('click', () => {
+  soundAudio.currentTime = 0;
+  soundAudio.play();
+});
+
 let durationSeconds = parseInt(durationSelect.value, 10);
 let remaining = durationSeconds;
 let running = false;
@@ -127,14 +138,14 @@ function tick() {
 
 function start() {
   running = true;
-  startPauseBtn.textContent = 'Pause';
+  startPauseBtn.innerHTML = ICON_PAUSE + '<span>Pause</span>';
   startPauseBtn.classList.add('running');
   intervalId = setInterval(tick, 1000);
 }
 
 function pause() {
   running = false;
-  startPauseBtn.textContent = 'Start';
+  startPauseBtn.innerHTML = ICON_PLAY + '<span>Start</span>';
   startPauseBtn.classList.remove('running');
   clearInterval(intervalId);
   intervalId = null;
